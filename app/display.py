@@ -1,11 +1,14 @@
+import os
+
 import cv2
 import processing
 
+# SRC_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class Display:
     def __init__(self):
         self.cap = cv2.VideoCapture(0)
-        self.fd = processing.FacialDetection()
+        self.fr = processing.FacialRecognition()
 
         if not self.cap.isOpened():
             print("Cannot open camera")
@@ -19,8 +22,8 @@ class Display:
                 print("Problem receiving frames...")
                 break
 
-            detected_faces = self.fd.detect_faces(frame)
-            self.fd.draw_faces(frame, detected_faces, True)
+            detected_faces = self.fr.process_live_frame(frame)
+            self.fr.draw_overlays(frame, detected_faces)
             cv2.imshow("live feed", frame)
 
             if cv2.waitKey(1) == ord("q"):
