@@ -3,6 +3,9 @@ import os
 import cv2
 import processing
 
+SRC_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH = os.path.join(SRC_DIR, "data/")
+
 
 class Display:
     def __init__(self):
@@ -14,12 +17,16 @@ class Display:
             exit()
 
     def start(self):
+        self.fr.enroll_person("papi chulo gosling", os.path.join(DATA_PATH, "papi-chulo.jpg"))
+        self.fr.enroll_person("legoat", os.path.join(DATA_PATH, "legoat.jpg"))
+
         while True:
             ret, frame = self.cap.read()
 
             if not ret:
                 print("Problem receiving frames...")
                 break
+
 
             detected_faces = self.fr.process_live_frame(frame)
             self.fr.draw_overlays(frame, detected_faces)
