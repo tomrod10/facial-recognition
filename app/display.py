@@ -1,4 +1,5 @@
 import os
+import sys
 
 import cv2
 import processing
@@ -14,7 +15,7 @@ class Display:
 
         if not self.cap.isOpened():
             print("Cannot open camera")
-            exit()
+            sys.exit()
 
     def start(self):
         self.fr.enroll_person("papi chulo gosling", os.path.join(DATA_PATH, "papi-chulo.jpg"))

@@ -3,7 +3,7 @@ import os
 import cv2
 
 SRC_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(SRC_DIR, "yunet/")
+MODEL_PATH = os.path.join(SRC_DIR, "opencv_zoo/")
 
 class FacialRecognition:
     def __init__(self, src_dir=MODEL_PATH, frame_size=(640, 480)):
@@ -39,7 +39,7 @@ class FacialRecognition:
         # Temporarily configure detector size for the enrollment image
         h, w = img.shape[:2]
         self.detector.setInputSize((w, h))
-        retval, faces = self.detector.detect(img)
+        _, faces = self.detector.detect(img)
 
         if faces is not None and len(faces) > 0:
             # Align and crop the face using YuNet's output details, then compute embedding
@@ -56,7 +56,7 @@ class FacialRecognition:
         """Detects faces, computes embeddings, and matches them against the database."""
         h, w = frame.shape[:2]
         self.detector.setInputSize((w, h))
-        retval, faces = self.detector.detect(frame)
+        _, faces = self.detector.detect(frame)
 
         recognized_people = []
         if faces is not None:
