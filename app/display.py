@@ -3,7 +3,6 @@ import os
 import cv2
 import processing
 
-# SRC_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class Display:
     def __init__(self):
