@@ -18,7 +18,9 @@ class Display:
             sys.exit()
 
     def start(self):
-        self.fr.enroll_person("papi chulo gosling", os.path.join(DATA_PATH, "papi-chulo.jpg"))
+        self.fr.enroll_person(
+            "papi chulo gosling", os.path.join(DATA_PATH, "papi-chulo.jpg")
+        )
         self.fr.enroll_person("legoat", os.path.join(DATA_PATH, "legoat.jpg"))
 
         while True:
@@ -28,12 +30,12 @@ class Display:
                 print("Problem receiving frames...")
                 break
 
-
             detected_faces = self.fr.process_live_frame(frame)
             self.fr.draw_overlays(frame, detected_faces)
             cv2.imshow("live feed", frame)
 
             if cv2.waitKey(1) == ord("q"):
+                print("Exited program")
                 self.stop()
                 break
 
