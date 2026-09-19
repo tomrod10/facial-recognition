@@ -23,15 +23,18 @@ class Display:
 
         while True:
             ret, frame = self.cap.read()
-            frame, emb = self.fr.process_frame(frame)
+
 
             if not ret:
                 print("Problem receiving frames...")
                 break
 
+            # processed_frame = cv2.flip(frame, 1)
+            frame, emb = self.fr.process_frame(frame)
+            cv2.imshow("live feed", frame)
 
-        cv2.imshow("live feed", frame)
-
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
 
     def stop(self):
         self.cap.release()
