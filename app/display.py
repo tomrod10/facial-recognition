@@ -28,6 +28,7 @@ class Display:
             if not ret:
                 print("Problem receiving frames...")
                 break
+            frame, emb = self.fr.process_frame(frame)
             cv2.imshow("live feed", frame)
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
