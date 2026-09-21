@@ -13,9 +13,19 @@ In a final attempt, I implemented mobile-optimized versions of RetinaFace and Ar
 
 [Branch with RetinaFace and ArcFace implementation](https://github.com/tomrod10/facial-recognition/tree/tr/3/retinaFace%2BarcFace)
 
+## E2E
+The program can be broken down into two main parts: detection and recognition. For detection, an image is read and key information like its width and height are then passed into the detector (YuNet). Inside the detector a multi-step process occurs:
+- Feature extraction: Converts raw pixel data into increasingly useful visual features
+- Multi-scale aggregation: Gathers information from the image at different resolutions for the model to detect faces reliably
+- Anchor-free heads: Uses feature maps from the CNN backbone to make predictions about potential face locations
+- Detection: Produces the face confidence score, bounding box coordinates, and five facial landmarks
+
+Once YuNet provides the bounding box, landmarks, and confidence score, the recognition process begins using SFace. The detected face is first cropped, aligned using the facial landmarks, and scaled into a standardized format. This helps the model process different images of the same person more consistently. 
+
+Once the face has been standardized, SFace processes it into an embedding, which is a numerical representation of the face. This embedding can be stored and later compared against other embeddings to determine facial similarity.
 
 ## Demo
-<p align="center>OpenCV + YuNet + Sface</p>
+<p align="center">OpenCV + YuNet + Sface</p>
 <p align="center">
   <img width="800" height="450" alt="facial-recognition-demo" src="https://github.com/user-attachments/assets/afdab0c7-41d4-4d98-96cc-632ad09d816c" />
 </p>
